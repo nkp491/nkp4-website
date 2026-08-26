@@ -1,69 +1,79 @@
 import type { Metadata } from "next";
-import LinkCard from "@/components/LinkCard";
 
 export const metadata: Metadata = {
-  title: "Links | NKP4",
-  description: "Connect with NKP4 - Professional links and social media",
+  title: "Quick Links | NKP4",
+  description: "Fast access to the best ways to contact NKP4.",
 };
 
-const professionalLinks = [
+const quickLinks = [
   {
-    title: "LinkedIn",
-    description: "Connect with me professionally",
-    url: "https://linkedin.com/in/yourprofile",
-    icon: "💼",
+    label: "Email",
+    value: "your.email@example.com",
+    href: "mailto:your.email@example.com",
+    note: "Best for introductions, follow-up, and anything that needs a reply.",
   },
   {
-    title: "GitHub",
-    description: "Check out my code and projects",
-    url: "https://github.com/yourusername",
-    icon: "💻",
+    label: "LinkedIn",
+    value: "linkedin.com/in/yourprofile",
+    href: "https://linkedin.com/in/yourprofile",
+    note: "Best for professional networking and company-related conversations.",
   },
   {
-    title: "Email",
-    description: "Reach out for collaborations",
-    url: "mailto:your.email@example.com",
-    icon: "📧",
+    label: "Personal site",
+    value: "nkp4 website",
+    href: "/",
+    note: "Best for the full context: companies, background, and contact paths.",
   },
   {
-    title: "Portfolio",
-    description: "View my complete portfolio",
-    url: "/",
-    icon: "🌐",
+    label: "Phone",
+    value: "(555) 555-5555",
+    href: "tel:+15555555555",
+    note: "Best for urgent or time-sensitive conversations.",
   },
 ];
 
 export default function LinksPage() {
   return (
-    <main className="min-h-screen px-6 py-20">
-      <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Connect With Me
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Find me on these platforms
+    <main className="editorial-shell min-h-screen px-6 py-10 sm:px-8">
+      <div className="mx-auto max-w-5xl">
+        <section className="hero-aside-panel border border-black/10 bg-[var(--surface-strong)] text-[color:var(--foreground)]">
+          <p className="panel-kicker">Quick links</p>
+          <h1 className="section-title">One page with the essentials.</h1>
+          <p className="section-summary mt-4 max-w-2xl">
+            Use this page when someone wants the fastest path to your contact
+            details and public profiles.
           </p>
-        </div>
-        <div className="space-y-4">
-          {professionalLinks.map((link, index) => (
-            <LinkCard
-              key={index}
-              title={link.title}
-              description={link.description}
-              url={link.url}
-              icon={link.icon}
-            />
-          ))}
-        </div>
-        <div className="mt-12 text-center">
-          <a
-            href="/"
-            className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-600 transition-colors"
-          >
-            ← Back to Home
-          </a>
-        </div>
+
+          <div className="mt-8 grid gap-4">
+            {quickLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="contact-tile bg-white/70"
+              >
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="contact-label">{link.label}</p>
+                    <p className="mt-1 text-lg font-semibold text-[color:var(--foreground)]">
+                      {link.value}
+                    </p>
+                  </div>
+                  <span className="company-status">Open</span>
+                </div>
+                <p className="contact-note mt-0">{link.note}</p>
+              </a>
+            ))}
+          </div>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a href="/" className="primary-button">
+              Back to home
+            </a>
+            <a href="mailto:your.email@example.com" className="secondary-button">
+              Send an email
+            </a>
+          </div>
+        </section>
       </div>
     </main>
   );
