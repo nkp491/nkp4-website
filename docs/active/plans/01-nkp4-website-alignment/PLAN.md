@@ -1,6 +1,6 @@
 # Plan: NKP4 Website Alignment
 
-Status: Drafted — pending Phase 5 audit and owner gates  
+Status: Execution-ready — Phase 5 complete; owner decisions recorded
 Run order: 01  
 Source: [nkp4-website-alignment.md](./nkp4-website-alignment.md)  
 Finding: [nkp4-website-audit-findings.md](./nkp4-website-audit-findings.md)
@@ -199,9 +199,9 @@ continuing.
 
 ## Handoff
 
-Next step: run `phase5-audit-plan` against this draft. Phase 5 should validate
-the file map, owner gates, safe content boundaries, verification commands, and
-the conditional legacy-route handling before Phase 6 implementation.
+Next step: run `phase6-build docs/active/plans/01-nkp4-website-alignment/`.
+The Phase 6 session must follow the final audit amendment below and the
+plan-specific kickoff prompt.
 
 ## Audit amendments — 2026-08-27
 
@@ -311,3 +311,95 @@ configuration, README, and source-packet lines state the claims attached to
 them. **FALSE POSITIVE:** none. **NEEDS MANUAL REVIEW:** owner approvals for
 Manifest, contact destinations, legacy-route disposition, and final visual
 assets; these are factual/business decisions not inferable from code.
+
+## Audit amendments — 2026-08-27 (owner decisions closed)
+
+**Phase 5 verdict:** GO. The owner resolved every blocking decision below;
+this section supersedes the prior gated verdict where they differ.
+
+### Approved public scope
+
+- Use `Build. Operate. Equip. Invest.` as the public framework heading.
+- Publish Manifest Network in v1 as one portfolio entry labeled `Investment`.
+  Its approved description is: “An outside investment in a Web3 company focused
+  on Proof of Authority.” Its card/detail CTA may link directly to
+  `https://manifest.network/`.
+- Display `Operating Company` for NKP4 Technology and `Founder & Operator` for
+  SureHelp. Keep industry separate from relationship labels; do not imply
+  ownership of Manifest.
+- Use one mixed portfolio grid with an interactive industry filter. The filter
+  must derive its options and results from the centralized portfolio data; it
+  must not become a second hard-coded source of relationship facts.
+- Partnerships routes to the owner-approved Google Calendar appointment URL in
+  a new tab with `rel="noopener noreferrer"`. Direct Nielsen contact routes to
+  `mailto:contact@nkp4.com`.
+- Keep “Don’t just sell the apple. Sell the seeds.” internal; it may guide copy
+  but must not appear in public routes or metadata.
+- Founder copy may use only the approved progression and builder/operator
+  observation quote. Do not publish named employers, consulting clients, the
+  failed startup, or funding details.
+- Retain the warm editorial direction, a text-only NKP4 wordmark, no portrait
+  or photography, and only subtle hover/focus motion. A future owner-provided
+  logo and photo are out of scope for this release.
+- Remove `/links`, `/secret`, `LinkCard`, and the remaining dormant personal
+  site components after a reference check. Rewrite `README.md` for the NKP4
+  project rather than deleting it.
+- Keep NKP4 Technology and SureHelp descriptions high-level. Do not publish a
+  fixed service menu, product list, metrics, or unsupported ownership claims.
+
+### Required implementation refinements
+
+1. Add a narrowly scoped client component for the interactive industry filter;
+   keep the surrounding page, shared shell, and portfolio data server-first.
+2. Add `eslint.config.mjs` for ESLint 9 and change the lint command to
+   `eslint .`. Add a `typecheck` script for `tsc --noEmit`.
+3. Extend the change map to include `README.md` (rewrite), `eslint.config.mjs`
+   (add), the industry-filter component (add), and the dormant personal-site
+   components (conditional removal after reference checks).
+4. Treat this route set as the public release surface: `/`, `/companies`,
+   `/companies/nkp4-technology`, `/companies/surehelp`,
+   `/companies/manifest-network`, `/about`, and `/contact`. `/links` and
+   `/secret` must return 404 after removal.
+
+### Reproducible verification
+
+Run these commands after implementation:
+
+```bash
+npm run typecheck
+npm run lint
+npm run build
+```
+
+Start the webpack development server with `npm run dev`, then verify HTTP 200
+responses for every public route in the release surface and HTTP 404 responses
+for `/links` and `/secret`. At desktop and a 390px-wide mobile viewport, verify
+the navigation, interactive industry filter, all card/detail relationship
+labels, keyboard focus, Calendar new-tab behavior, and contact mail link.
+
+Scan only shipped source/assets for stale public content:
+
+```bash
+rg -n 'hello@nkp4\.com|your\.email@example\.com|yourusername|Build\. Operate\. Invest\.' app components data public
+```
+
+The scan must return no matches after retired files are removed. Do not scan
+source-of-truth documents or archived/retired files.
+
+### Final coverage matrix
+
+| # | Guardrail (source §) | Tier | Mark | Evidence |
+|---|---|---|---|---|
+| 1 | Founder-led portfolio headquarters, not a generic holding company (§00 Primary rule) | STANDARD | ADDRESSED | Approved public scope requires the four-part framework, portfolio-first presentation, and relationship labels. |
+| 2 | Never invent portfolio relationships or ownership (§00 Authority) | HIGH | ADDRESSED | Manifest’s approved public wording and all three exact relationship labels are recorded above. |
+| 3 | Not a résumé, funnel, influencer page, or logo wall (§01 What the site is not) | STANDARD | ADDRESSED | Founder scope is limited to the progression and quote; portfolio remains evidence, not a logo wall. |
+| 4 | Do not appear larger or more institutional than NKP4 is (§01; §06) | STANDARD | ADDRESSED | Owner approved warm editorial, text-only branding, and no institutional photography or excessive motion. |
+| 5 | Do not publish unverified service, product, investment, or founder claims (§05; §09) | HIGH | ADDRESSED | Approved public scope limits company copy and specifies the sole Manifest description. |
+| 6 | Do not copy reference-site execution (§06) | STANDARD | ADDRESSED | Phase 6 retains the existing direction and uses the references only as constraints, not templates. |
+
+### Citation self-review
+
+**CONFIRMED:** the owner decisions above resolve the previously gated Manifest,
+contact, legacy-route, copy, visual, and verification findings. **NEEDS MANUAL
+REVIEW:** none before implementation; future logo/photo additions require their
+own content and visual review.
