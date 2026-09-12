@@ -403,3 +403,8 @@ source-of-truth documents or archived/retired files.
 contact, legacy-route, copy, visual, and verification findings. **NEEDS MANUAL
 REVIEW:** none before implementation; future logo/photo additions require their
 own content and visual review.
+
+## Build notes — 2026-08-27
+
+- The checkout contained an earlier uncommitted implementation; it was preserved while the Phase 6 branch was created from `origin/main`.
+- Removing `/links` and `/secret` left stale generated Next type artifacts in `.next`/`.next-dev`; clearing those generated directories restored clean typecheck and lint behavior.

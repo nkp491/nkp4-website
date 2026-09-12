@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NEXT_DIST_DIR=.next-dev next dev --webpack --hostname 127.0.0.1 --port 3001",
+    "dev:turbo": "NEXT_DIST_DIR=.next-dev next dev --hostname 127.0.0.1 --port 3001",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "next": "^16.1.1",
