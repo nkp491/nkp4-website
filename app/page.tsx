@@ -1,6 +1,124 @@
 import PageShell from "@/components/PageShell";
 import PortfolioCard from "@/components/PortfolioCard";
 import { portfolioCompanies } from "@/data/portfolio";
-const framework = [{ title: "Build", text: "Create companies, products and ventures from the ground up." }, { title: "Operate", text: "Work directly inside selected businesses and help them move forward." }, { title: "Equip", text: "Make useful technology and operating experience available to others." }, { title: "Invest", text: "Support outside opportunities where NKP4 can contribute for the long term." }];
-const philosophy = [{ title: "Accountability", text: "Own the work and the outcome." }, { title: "Predictability", text: "Build systems people can rely on." }, { title: "Profitability", text: "Create durable value." }, { title: "Scalability", text: "Make what works repeatable." }];
-export default function Home() { return <PageShell><section className="hq-hero"><div className="hq-hero-copy"><p className="hq-eyebrow">Founded by Nielsen Aragon</p><h1>The business home for what Nielsen builds.</h1><p>NKP4 is a founder-led holding company for companies, technology, investments and ideas built or backed by Nielsen Aragon.</p><div className="hq-hero-actions"><a href="#portfolio" className="hq-primary-link">Explore the portfolio</a><a href="/contact" className="hq-secondary-link">Contact NKP4</a></div></div><aside className="hq-hero-panel" aria-label="NKP4 framework"><span>NKP4</span><small>Build · Operate · Equip · Invest</small></aside></section><section id="portfolio" className="hq-section hq-portfolio-section"><div className="hq-section-heading"><p className="hq-eyebrow">Portfolio</p><h2>What NKP4 is building and backing.</h2><p>Every entry shows the relationship clearly.</p></div><div className="hq-portfolio-grid">{portfolioCompanies.map((company) => <PortfolioCard company={company} key={company.slug} />)}</div></section><section className="hq-section hq-pillars"><div className="hq-section-heading"><p className="hq-eyebrow">How NKP4 works</p><h2>Build. Operate. Equip. Invest.</h2></div><div className="hq-pillar-grid">{framework.map((item) => <article key={item.title}><span>{item.title}</span><p>{item.text}</p></article>)}</div></section><section className="hq-section hq-founder"><div className="hq-founder-mark" aria-hidden="true">NA</div><div><p className="hq-eyebrow">Founder</p><h2>Builder, operator, founder.</h2><p>Nielsen observes closely, immerses himself in the work, and builds systems that give people time back.</p><a href="/about" className="hq-text-link">About Nielsen →</a></div></section><section className="hq-section hq-pillars"><div className="hq-section-heading"><p className="hq-eyebrow">Operating philosophy</p><h2>Make the work stronger at every step.</h2></div><div className="hq-pillar-grid">{philosophy.map((item) => <article key={item.title}><span>{item.title}</span><p>{item.text}</p></article>)}</div></section><section className="hq-section hq-contact-band"><div><p className="hq-eyebrow">Connect</p><h2>Find the right path.</h2></div><a className="hq-contact-card" href="/contact"><span>Contact</span><strong>Start a conversation with NKP4</strong></a></section></PageShell>; }
+
+const framework = [
+  {
+    title: "Build",
+    text: "Create companies, products and ventures from the ground up.",
+  },
+  {
+    title: "Operate",
+    text: "Work directly inside selected businesses and help them move forward.",
+  },
+  {
+    title: "Equip",
+    text: "Make useful technology and operating experience available to others.",
+  },
+  {
+    title: "Invest",
+    text: "Support outside opportunities where NKP4 can contribute for the long term.",
+  },
+];
+
+const philosophy = [
+  { title: "Accountability", text: "Own the work and the outcome." },
+  { title: "Predictability", text: "Build systems people can rely on." },
+  { title: "Profitability", text: "Create durable value." },
+  { title: "Scalability", text: "Make what works repeatable." },
+];
+
+export default function Home() {
+  return (
+    <PageShell>
+      <section className="hq-hero">
+        <div className="hq-hero-copy">
+          <p className="hq-eyebrow">Founded by Nielsen Aragon</p>
+          <h1>The business home for what Nielsen builds.</h1>
+          <p>
+            NKP4 is a founder-led holding company for companies, technology,
+            investments and ideas built or backed by Nielsen Aragon.
+          </p>
+          <div className="hq-hero-actions">
+            <a href="#portfolio" className="hq-primary-link">
+              Explore the portfolio
+            </a>
+            <a href="/contact" className="hq-secondary-link">
+              Contact NKP4
+            </a>
+          </div>
+        </div>
+        <aside className="hq-hero-panel" aria-label="NKP4 framework">
+          <span>NKP4</span>
+          <small>Build · Operate · Equip · Invest</small>
+        </aside>
+      </section>
+      <section id="portfolio" className="hq-section hq-portfolio-section">
+        <div className="hq-section-heading">
+          <p className="hq-eyebrow">Portfolio</p>
+          <h2>What NKP4 is building and backing.</h2>
+          <p>Every entry shows the relationship clearly.</p>
+        </div>
+        <div className="hq-portfolio-grid">
+          {portfolioCompanies.map((company) => (
+            <PortfolioCard company={company} key={company.slug} />
+          ))}
+        </div>
+      </section>
+      <section className="hq-section hq-pillars">
+        <div className="hq-section-heading">
+          <p className="hq-eyebrow">How NKP4 works</p>
+          <h2>Build. Operate. Equip. Invest.</h2>
+        </div>
+        <div className="hq-pillar-grid">
+          {framework.map((item) => (
+            <article key={item.title}>
+              <span>{item.title}</span>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="hq-section hq-founder">
+        <div className="hq-founder-mark" aria-hidden="true">
+          NA
+        </div>
+        <div>
+          <p className="hq-eyebrow">Founder</p>
+          <h2>Builder, operator, founder.</h2>
+          <p>
+            Nielsen observes closely, immerses himself in the work, and builds
+            systems that give people time back.
+          </p>
+          <a href="/about" className="hq-text-link">
+            About Nielsen →
+          </a>
+        </div>
+      </section>
+      <section className="hq-section hq-pillars">
+        <div className="hq-section-heading">
+          <p className="hq-eyebrow">Operating philosophy</p>
+          <h2>Make the work stronger at every step.</h2>
+        </div>
+        <div className="hq-pillar-grid">
+          {philosophy.map((item) => (
+            <article key={item.title}>
+              <span>{item.title}</span>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="hq-section hq-contact-band">
+        <div>
+          <p className="hq-eyebrow">Connect</p>
+          <h2>Find the right path.</h2>
+        </div>
+        <a className="hq-contact-card" href="/contact">
+          <span>Contact</span>
+          <strong>Start a conversation with NKP4</strong>
+        </a>
+      </section>
+    </PageShell>
+  );
+}

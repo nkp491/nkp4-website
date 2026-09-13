@@ -2,6 +2,69 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import PageShell from "@/components/PageShell";
 import { getPortfolioCompany, portfolioCompanies } from "@/data/portfolio";
-export function generateStaticParams() { return portfolioCompanies.map(({ slug }) => ({ slug })); }
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const company = getPortfolioCompany((await params).slug); return company ? { title: `${company.name} | NKP4`, description: company.description } : {}; }
-export default async function CompanyPage({ params }: { params: Promise<{ slug: string }> }) { const company = getPortfolioCompany((await params).slug); if (!company) notFound(); return <PageShell><article className="hq-detail"><div className="hq-detail-mark" style={{ "--accent": company.accent } as React.CSSProperties}>{company.logoText}</div><p className="hq-eyebrow">{company.industry.join(" · ")}</p><h1>{company.name}</h1><p className="hq-detail-summary">{company.description}</p><div className="hq-detail-meta"><span>{company.relationship}</span></div><section className="hq-detail-grid" aria-label={`${company.name} details`}><div><p className="hq-mini-label">About</p><p>{company.description}</p></div><div><p className="hq-mini-label">NKP4 relationship</p><p>{company.relationship}</p></div></section>{company.website && <a href={company.website} target="_blank" rel="noopener noreferrer" className="hq-primary-link">{company.cta}</a>}</article></PageShell>; }
+
+export function generateStaticParams() {
+  return portfolioCompanies.map(({ slug }) => ({ slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const company = getPortfolioCompany((await params).slug);
+  return company
+    ? { title: `${company.name} | NKP4`, description: company.description }
+    : {};
+}
+
+export default async function CompanyPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const company = getPortfolioCompany((await params).slug);
+  if (!company) notFound();
+
+  return (
+    <PageShell>
+      <article className="hq-detail">
+        <div
+          className="hq-detail-mark"
+          style={{ "--accent": company.accent } as React.CSSProperties}
+        >
+          {company.logoText}
+        </div>
+        <p className="hq-eyebrow">{company.industry.join(" · ")}</p>
+        <h1>{company.name}</h1>
+        <p className="hq-detail-summary">{company.description}</p>
+        <div className="hq-detail-meta">
+          <span>{company.relationship}</span>
+        </div>
+        <section
+          className="hq-detail-grid"
+          aria-label={`${company.name} details`}
+        >
+          <div>
+            <p className="hq-mini-label">About</p>
+            <p>{company.description}</p>
+          </div>
+          <div>
+            <p className="hq-mini-label">NKP4 relationship</p>
+            <p>{company.relationship}</p>
+          </div>
+        </section>
+        {company.website && (
+          <a
+            href={company.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hq-primary-link"
+          >
+            {company.cta}
+          </a>
+        )}
+      </article>
+    </PageShell>
+  );
+}

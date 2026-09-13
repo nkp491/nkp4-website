@@ -1,1 +1,15 @@
-export default function SiteFooter() { return <footer className="hq-footer"><a href="/" className="hq-wordmark">NKP4</a><nav aria-label="Footer navigation"><a href="/companies">Companies</a><a href="/about">About</a><a href="/contact">Contact</a></nav><span>© NKP4</span></footer>; }
+export default function SiteFooter() {
+  return (
+    <footer className="hq-footer">
+      <a href="/" className="hq-wordmark">
+        NKP4
+      </a>
+      <nav aria-label="Footer navigation">
+        <a href="/companies">Companies</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+      </nav>
+      <span>© NKP4</span>
+    </footer>
+  );
+}
