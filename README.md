@@ -17,6 +17,8 @@ Open [http://localhost:3001](http://localhost:3001).
 npm run typecheck
 npm run lint
 npm run build
+bash docs/active/plans/02-nkp4-design-alignment/verify-design.sh --selftest
+bash docs/active/plans/02-nkp4-design-alignment/verify-design.sh http://127.0.0.1:3002
 ```
 
 Public routes are `/`, `/companies`, `/companies/digitalmocean`, `/companies/surehelp`, `/companies/manifest-network`, `/about`, and `/contact`. The retired `/links` and `/secret` routes should return 404.

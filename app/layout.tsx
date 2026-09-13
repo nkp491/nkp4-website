@@ -17,9 +17,10 @@ export const metadata: Metadata = {
       "The founder-led business home for companies, technology, investments and ideas built or backed by Nielsen Aragon.",
     images: [
       {
-        url: "/og-card.svg",
+        url: "/og-card.png",
         width: 1200,
         height: 630,
+        type: "image/png",
         alt: "NKP4 — Build. Operate. Equip. Invest.",
       },
     ],
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     title: "NKP4 — Build. Operate. Equip. Invest.",
     description:
       "The founder-led business home for companies, technology, investments and ideas built or backed by Nielsen Aragon.",
-    images: ["/og-card.svg"],
+    images: ["/og-card.png"],
   },
 };
 
