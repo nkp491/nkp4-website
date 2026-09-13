@@ -747,6 +747,68 @@ select {
     transform: rotate(90deg);
   }
 
+  .hq-section {
+    padding-block: 24px;
+  }
+
+  .hq-portfolio-grid {
+    margin-top: 24px;
+  }
+
+  .hq-company-card {
+    padding: 18px;
+  }
+
+  .hq-card-industry {
+    margin-top: 18px;
+  }
+
+  .hq-company-card > p {
+    margin-top: 16px;
+  }
+
+  .hq-chip {
+    margin-top: 16px;
+  }
+
+  .hq-card-link {
+    padding-top: 18px;
+  }
+
+  .hq-framework-list {
+    margin-top: 32px;
+    gap: 20px;
+  }
+
+  .hq-framework-list li {
+    padding-top: 18px;
+  }
+
+  .hq-progression-band {
+    margin-top: 28px;
+  }
+
+  .hq-progression-band li {
+    padding-bottom: 20px;
+  }
+
+  .hq-progression-band li:last-child {
+    padding-bottom: 0;
+  }
+
+  .hq-founder-quote {
+    margin-top: 40px;
+  }
+
+  .hq-formula {
+    margin-top: 28px;
+    gap: 24px;
+  }
+
+  .hq-formula li:not(:last-child)::after {
+    bottom: -22px;
+  }
+
   .hq-footer {
     align-items: flex-start;
     flex-direction: column;
