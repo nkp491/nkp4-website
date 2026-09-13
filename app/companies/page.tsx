@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function CompaniesPage() {
   return (
-    <PageShell>
+    <PageShell current="companies">
       <section className="hq-page-hero">
         <p className="hq-eyebrow">Portfolio</p>
         <h1>Companies and investments connected to NKP4.</h1>

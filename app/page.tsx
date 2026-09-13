@@ -1,123 +1,124 @@
+import ContactRouteCard from "@/components/ContactRouteCard";
+import FormulaSequence from "@/components/FormulaSequence";
+import FounderProgression from "@/components/FounderProgression";
 import PageShell from "@/components/PageShell";
 import PortfolioCard from "@/components/PortfolioCard";
+import { contactRoutes } from "@/data/contact";
 import { portfolioCompanies } from "@/data/portfolio";
 
 const framework = [
   {
     title: "Build",
-    text: "Create companies, products and ventures from the ground up.",
+    text: "Create companies, products, software, and new ventures.",
   },
   {
     title: "Operate",
-    text: "Work directly inside selected businesses and help them move forward.",
+    text: "Help businesses build stronger systems and execute consistently.",
   },
   {
     title: "Equip",
-    text: "Make useful technology and operating experience available to others.",
+    text: "Give founders and operators access to modern technology, operating knowledge, and resources.",
   },
   {
     title: "Invest",
-    text: "Support outside opportunities where NKP4 can contribute for the long term.",
+    text: "Participate in opportunities where NKP4 can contribute more than capital.",
   },
-];
-
-const philosophy = [
-  { title: "Accountability", text: "Own the work and the outcome." },
-  { title: "Predictability", text: "Build systems people can rely on." },
-  { title: "Profitability", text: "Create durable value." },
-  { title: "Scalability", text: "Make what works repeatable." },
 ];
 
 export default function Home() {
   return (
     <PageShell>
-      <section className="hq-hero">
+      <section id="hero" className="hq-hero">
         <div className="hq-hero-copy">
           <p className="hq-eyebrow">Founded by Nielsen Aragon</p>
-          <h1>The business home for what Nielsen builds.</h1>
+          <h1>The home for what Nielsen Aragon builds.</h1>
           <p>
-            NKP4 is a founder-led holding company for companies, technology,
-            investments and ideas built or backed by Nielsen Aragon.
+            NKP4 is the business home for companies, technology, investments,
+            and ideas built or backed by Nielsen Aragon.
           </p>
           <div className="hq-hero-actions">
             <a href="#portfolio" className="hq-primary-link">
               Explore the portfolio
             </a>
-            <a href="/contact" className="hq-secondary-link">
-              Contact NKP4
+            <a href="#connect" className="hq-secondary-link">
+              Let&apos;s connect →
             </a>
           </div>
+          <p className="hq-framework-rule">Build · Operate · Equip · Invest</p>
         </div>
-        <aside className="hq-hero-panel" aria-label="NKP4 framework">
-          <span>NKP4</span>
-          <small>Build · Operate · Equip · Invest</small>
-        </aside>
       </section>
+
       <section id="portfolio" className="hq-section hq-portfolio-section">
         <div className="hq-section-heading">
-          <p className="hq-eyebrow">Portfolio</p>
-          <h2>What NKP4 is building and backing.</h2>
-          <p>Every entry shows the relationship clearly.</p>
+          <div>
+            <p className="hq-eyebrow">Portfolio</p>
+            <h2>What NKP4 builds, operates, and backs.</h2>
+          </div>
+          <p>Every entry states its relationship to NKP4.</p>
         </div>
         <div className="hq-portfolio-grid">
           {portfolioCompanies.map((company) => (
             <PortfolioCard company={company} key={company.slug} />
           ))}
         </div>
+        <a href="/companies" className="hq-text-link">
+          All companies →
+        </a>
       </section>
-      <section className="hq-section hq-pillars">
-        <div className="hq-section-heading">
-          <p className="hq-eyebrow">How NKP4 works</p>
-          <h2>Build. Operate. Equip. Invest.</h2>
-        </div>
-        <div className="hq-pillar-grid">
-          {framework.map((item) => (
-            <article key={item.title}>
-              <span>{item.title}</span>
+
+      <section id="framework" className="hq-section hq-framework-section">
+        <p className="hq-eyebrow">What NKP4 does</p>
+        <h2>Build. Operate. Equip. Invest.</h2>
+        <ol className="hq-framework-list">
+          {framework.map((item, index) => (
+            <li key={item.title}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{item.title}</h3>
               <p>{item.text}</p>
-            </article>
+            </li>
           ))}
-        </div>
+        </ol>
       </section>
-      <section className="hq-section hq-founder">
-        <div className="hq-founder-mark" aria-hidden="true">
-          NA
-        </div>
-        <div>
+
+      <section id="founder" className="hq-section hq-founder-band">
+        <div className="hq-band-inner">
           <p className="hq-eyebrow">Founder</p>
-          <h2>Builder, operator, founder.</h2>
-          <p>
-            Nielsen observes closely, immerses himself in the work, and builds
-            systems that give people time back.
-          </p>
+          <h2>Nielsen Aragon — builder and operator.</h2>
+          <FounderProgression variant="band" />
+          <figure className="hq-founder-quote">
+            <blockquote>
+              I sit, observe, immerse myself, then build the thing that gives
+              people their time back.
+            </blockquote>
+            <figcaption>— Nielsen Aragon</figcaption>
+          </figure>
           <a href="/about" className="hq-text-link">
-            About Nielsen →
+            Read the story →
           </a>
         </div>
       </section>
-      <section className="hq-section hq-pillars">
-        <div className="hq-section-heading">
+
+      <section id="philosophy" className="hq-section hq-philosophy-band">
+        <div className="hq-band-inner">
           <p className="hq-eyebrow">Operating philosophy</p>
-          <h2>Make the work stronger at every step.</h2>
-        </div>
-        <div className="hq-pillar-grid">
-          {philosophy.map((item) => (
-            <article key={item.title}>
-              <span>{item.title}</span>
-              <p>{item.text}</p>
-            </article>
-          ))}
+          <h2>Accountability → Predictability → Profitability → Scalability</h2>
+          <FormulaSequence />
         </div>
       </section>
-      <section className="hq-section hq-contact-band">
-        <div>
-          <p className="hq-eyebrow">Connect</p>
-          <h2>Find the right path.</h2>
+
+      <section id="connect" className="hq-section hq-connect-section">
+        <div className="hq-section-heading">
+          <div>
+            <p className="hq-eyebrow">Connect</p>
+            <h2>Let&apos;s connect.</h2>
+          </div>
+          <p>Choose the path that fits the conversation.</p>
         </div>
-        <a className="hq-contact-card" href="/contact">
-          <span>Contact</span>
-          <strong>Start a conversation with NKP4</strong>
-        </a>
+        <div className="hq-contact-grid">
+          {contactRoutes.map((route) => (
+            <ContactRouteCard route={route} key={route.label} />
+          ))}
+        </div>
       </section>
     </PageShell>
   );

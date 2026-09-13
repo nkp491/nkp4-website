@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import CompanyMark from "@/components/CompanyMark";
 import PageShell from "@/components/PageShell";
+import RelationshipChip from "@/components/RelationshipChip";
 import { getPortfolioCompany, portfolioCompanies } from "@/data/portfolio";
 
 export function generateStaticParams() {
@@ -26,39 +28,25 @@ export default async function CompanyPage({
   const company = getPortfolioCompany((await params).slug);
   if (!company) notFound();
 
+  const destination = company.href ?? company.website;
+  const external = destination?.startsWith("http") ?? false;
+
   return (
-    <PageShell>
+    <PageShell current="companies">
       <article className="hq-detail">
-        <div
-          className="hq-detail-mark"
-          style={{ "--accent": company.accent } as React.CSSProperties}
-        >
-          {company.logoText}
-        </div>
+        <a href="/companies" className="hq-back-link">
+          ← All companies
+        </a>
+        <CompanyMark company={company} size="detail" />
         <p className="hq-eyebrow">{company.industry}</p>
         <h1>{company.name}</h1>
+        <RelationshipChip relationship={company.relationship} />
         <p className="hq-detail-summary">{company.description}</p>
-        <div className="hq-detail-meta">
-          <span>{company.relationship}</span>
-        </div>
-        <section
-          className="hq-detail-grid"
-          aria-label={`${company.name} details`}
-        >
-          <div>
-            <p className="hq-mini-label">About</p>
-            <p>{company.description}</p>
-          </div>
-          <div>
-            <p className="hq-mini-label">NKP4 relationship</p>
-            <p>{company.relationship}</p>
-          </div>
-        </section>
-        {company.website && (
+        {destination && (
           <a
-            href={company.website}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={destination}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener noreferrer" : undefined}
             className="hq-primary-link"
           >
             {company.cta}
