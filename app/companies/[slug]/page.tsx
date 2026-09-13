@@ -35,7 +35,7 @@ export default async function CompanyPage({
         >
           {company.logoText}
         </div>
-        <p className="hq-eyebrow">{company.industry.join(" · ")}</p>
+        <p className="hq-eyebrow">{company.industry}</p>
         <h1>{company.name}</h1>
         <p className="hq-detail-summary">{company.description}</p>
         <div className="hq-detail-meta">

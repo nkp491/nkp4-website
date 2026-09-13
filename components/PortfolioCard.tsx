@@ -1,4 +1,5 @@
-import type { CSSProperties } from "react";
+import CompanyMark from "@/components/CompanyMark";
+import RelationshipChip from "@/components/RelationshipChip";
 import type { PortfolioCompany } from "@/data/portfolio";
 
 export default function PortfolioCard({
@@ -7,17 +8,13 @@ export default function PortfolioCard({
   company: PortfolioCompany;
 }) {
   return (
-    <a
-      href={`/companies/${company.slug}`}
-      className="hq-company-card"
-      style={{ "--accent": company.accent } as CSSProperties}
-    >
-      <span className="hq-card-logo">{company.logoText}</span>
-      <span className="hq-card-industry">{company.industry[0]}</span>
+    <a href={`/companies/${company.slug}`} className="hq-company-card">
+      <CompanyMark company={company} size="card" />
+      <span className="hq-card-industry">{company.industry}</span>
       <h3>{company.name}</h3>
       <p>{company.description}</p>
-      <span className="hq-card-tags">{company.relationship}</span>
-      <span className="hq-card-link">Explore →</span>
+      <RelationshipChip relationship={company.relationship} />
+      <span className="hq-card-link">View →</span>
     </a>
   );
 }

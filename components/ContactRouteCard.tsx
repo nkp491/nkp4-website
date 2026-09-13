@@ -1,15 +1,6 @@
-export type ContactRoute = {
-  label: string;
-  title: string;
-  href: string;
-  external?: boolean;
-};
+import type { ContactRoute } from "@/data/contact";
 
-export default function ContactRouteCard({
-  route,
-}: {
-  route: ContactRoute;
-}) {
+export default function ContactRouteCard({ route }: { route: ContactRoute }) {
   return (
     <a
       href={route.href}
@@ -18,7 +9,15 @@ export default function ContactRouteCard({
       rel={route.external ? "noopener noreferrer" : undefined}
     >
       <span>{route.label}</span>
-      <strong>{route.title}</strong>
+      <strong>
+        {route.title}
+        {route.external && (
+          <>
+            <span aria-hidden="true"> ↗</span>
+            <span className="hq-visually-hidden">(opens in new tab)</span>
+          </>
+        )}
+      </strong>
     </a>
   );
 }

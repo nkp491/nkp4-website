@@ -9,7 +9,7 @@ const routes = [
   {
     label: "Technology",
     title: "Work with DigitalMocean",
-    href: "/companies/nkp4-technology",
+    href: "mailto:contact@nkp4.com",
   },
   {
     label: "Insurance",

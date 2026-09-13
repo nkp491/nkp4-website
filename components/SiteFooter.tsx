@@ -1,3 +1,5 @@
+import { contactEmail } from "@/data/contact";
+
 export default function SiteFooter() {
   return (
     <footer className="hq-footer">
@@ -9,6 +11,7 @@ export default function SiteFooter() {
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
       </nav>
+      <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
       <span>© NKP4</span>
     </footer>
   );

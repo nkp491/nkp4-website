@@ -19,6 +19,6 @@ npm run lint
 npm run build
 ```
 
-Public routes are `/`, `/companies`, `/companies/nkp4-technology`, `/companies/surehelp`, `/companies/manifest-network`, `/about`, and `/contact`. The retired `/links` and `/secret` routes should return 404.
+Public routes are `/`, `/companies`, `/companies/digitalmocean`, `/companies/surehelp`, `/companies/manifest-network`, `/about`, and `/contact`. The retired `/links` and `/secret` routes should return 404.
 
 Portfolio entries are centralized in `data/portfolio.ts`; shared presentation primitives live in `components/`.

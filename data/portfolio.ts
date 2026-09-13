@@ -7,9 +7,11 @@ export type PortfolioCompany = {
   name: string;
   slug: string;
   logoText: string;
+  logo?: string;
   website?: string;
+  href?: string;
   relationship: PortfolioRelationship;
-  industry: string[];
+  industry: string;
   description: string;
   cta: string;
   accent: string;
@@ -18,21 +20,22 @@ export type PortfolioCompany = {
 export const portfolioCompanies: PortfolioCompany[] = [
   {
     name: "DigitalMocean",
-    slug: "nkp4-technology",
+    slug: "digitalmocean",
     logoText: "DM",
+    href: "mailto:contact@nkp4.com",
     relationship: "Operating Company",
-    industry: ["Technology", "AI"],
+    industry: "AI & Technology",
     description:
       "A technology business applying practical systems and software to help companies work with more leverage.",
     cta: "Work with DigitalMocean",
-    accent: "#2f5f8f",
+    accent: "#8a6a3a",
   },
   {
     name: "SureHelp",
     slug: "surehelp",
     logoText: "SH",
     relationship: "Founder & Operator",
-    industry: ["Insurance Technology"],
+    industry: "Insurtech",
     description:
       "An insurance technology company built around a better experience for life insurance professionals.",
     cta: "Explore SureHelp",
@@ -44,7 +47,7 @@ export const portfolioCompanies: PortfolioCompany[] = [
     logoText: "MN",
     website: "https://manifest.network/",
     relationship: "Investment",
-    industry: ["Web3", "Blockchain"],
+    industry: "Web3",
     description:
       "An outside investment in a Web3 company focused on Proof of Authority.",
     cta: "Visit Manifest Network",
@@ -57,8 +60,5 @@ export function getPortfolioCompany(slug: string) {
 }
 
 export function getPortfolioIndustries() {
-  return [
-    "All",
-    ...new Set(portfolioCompanies.flatMap((company) => company.industry)),
-  ];
+  return ["All", ...new Set(portfolioCompanies.map((company) => company.industry))];
 }
