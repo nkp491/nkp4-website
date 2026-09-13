@@ -1,6 +1,6 @@
 # NKP4 Website PM Kickoff
 
-Status: OPEN — not yet taken
+Status: TAKEN — PM nkp4-design-decisions on rcDBNull-800
 Role: design-decision PM; do not implement, commit, push, merge, or deploy without separate owner approval.
 
 ## Current state
@@ -58,6 +58,22 @@ Ask all questions through the `questionnaire` tool, with the recommended option 
    - Produce a design review and proposed wireframe first (recommended)
    - Implement immediately
    - Create 2–3 visual concepts before coding
+
+## Owner decisions (recorded 2026-08-27, PM nkp4-design-decisions on rcDBNull-800)
+
+All nine questions answered with the recommended option:
+
+1. **Company URL** → `/companies/digitalmocean`
+2. **Overall visual direction** → Refine the warm editorial design
+3. **Homepage portfolio filter** → Keep homepage simple; filters only on `/companies`
+4. **Founder presentation** → Prominent founder story with progression and quote
+5. **Founder imagery** → No photo for this release
+6. **Portfolio company marks** → Typographic initials until real logos are supplied
+7. **Homepage density** → Concise, approximately 6–7 sections
+8. **Existing implementation branch** → Salvage, clean up, and rebase onto current `main`
+9. **Next deliverable** → Produce a design review and proposed wireframe first
+
+Status after decisions: gathering complete. No implementation, commit, push, merge, or deploy performed. Next deliverable (per decision 9) is a design review + proposed wireframe, to be undertaken in a separate session with owner approval before any code.
 
 ## Successor prompt
 
