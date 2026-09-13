@@ -1,6 +1,6 @@
 # Plan 02: NKP4 Design Alignment (salvage amendment to Plan 01)
 
-Status: **Audited 2026-09-12 — GO WITH CHANGES.** Amendments folded in the final section, which is binding. Phase 6 gated on D2 (docs PR merged).
+Status: **Re-audited 2026-09-13 — GO.** The 2026-09-12 amendments and all 2026-09-13 amendments, including the final mobile-spacing amendment, are binding. Phase 6 gated on D2 (docs PR merged).
 Run order: 02
 Date: 2026-09-12
 Type: Amendment. Plan 01 stays in place as provenance; this plan supersedes only its conflicting
@@ -707,3 +707,150 @@ Area to NKP4.”), `<FounderProgression variant="full" />`, the `<figure><blockq
 All three items listed in §12 are closed: hero h1 (F5), `/about` h1 (F10), `/about` paragraphs
 (§D, subject to the G5.8 trim-only rule). No owner gate is open. Phase 6 entry point:
 `PROMPT.md` in this folder.
+
+---
+
+## Audit amendment — 2026-09-13 (W4 type migration)
+
+**Re-audit verdict: GO.** Confidence: high. This narrow Tier-2 amendment resolves the W4 gate
+failure without reopening decisions 1–9 or D-10.
+
+**Binding rule.** This section is part of the plan and, as the latest amendment, wins if it
+conflicts with any earlier text. F1–F13 and §§C–E above remain binding.
+
+**F14 [HIGH] — W4 changed `company.industry` from `string[]` to `string`, but left a detail-page
+array consumer until W5.** After T4.1, `app/companies/[slug]/page.tsx` still called
+`company.industry.join(" · ")`; therefore W4's required G3 typecheck could not pass.
+
+- *Amendment.* New **T4.14 (W4)**: in `app/companies/[slug]/page.tsx`, replace
+  `{company.industry.join(" · ")}` with `{company.industry}` in the same W4 change set as T4.1.
+  T5.3 may later restructure the detail page, but it must preserve the scalar string rendering.
+- *Gate sequence.* Complete **T4.1, T4.8, and T4.14** (all consumers required by the type
+  migration), then complete the remaining W4 tasks, then run **G3 in full**, including
+  `npm run typecheck`, before requesting the W4 commit or starting W5. A failed W4 G3 stops the
+  lane; the type migration must not be split across W4 and W5.
+- *Coverage.* The repo consumer sweep identifies the filter equality use, card scalar rendering,
+  and detail-page rendering; T4.8, T4.7, and T4.14 respectively keep all three compatible with
+  `industry: string`. Open coverage rows remain **none**.
+
+---
+
+## Audit amendment — 2026-09-13 (W5 rendered-gate sequencing)
+
+**Re-audit verdict: GO.** Confidence: high. This narrow Tier-2 amendment fixes only the W5/W6
+G4 sequencing contradiction; it does not waive or move any release criterion.
+
+**Binding rule.** This is the latest amendment and wins on W5 gate sequencing only. All earlier
+amendments remain binding. Full G4 still must end `0 failed` after W6 and at W7.
+
+**F15 [HIGH] — W5's full G4 required three W6-owned outcomes.** T6.1, not W5, creates
+`public/og-card.png` and changes `og:image` and `twitter:image` to that PNG. Therefore W5 could
+satisfy every W5-owned rendered assertion while full G4 necessarily failed those three checks.
+
+- *Amendment.* Replace W5's `G3 + G4` gate with **G3 in full + G4-W5-pre-OG** below. The subset
+  runs the unchanged full verifier and accepts exactly these three failures, once each:
+  `og:image is not /og-card.png`, `twitter:image is not /og-card.png`, and
+  `og-card.png content-type: <pre-W6 value>`. Any other failure, missing expected failure,
+  duplicate failure, absent summary, or unexpected zero exit fails the W5 gate.
+- *Sequencing.* W6 cannot begin—and the W5 commit cannot be requested—unless W5 G3 passes in full,
+  `verify-design.sh --selftest` ends `7 passed, 0 failed`, and G4-W5-pre-OG passes. W6 then runs
+  G3 plus **full G4 with `0 failed`** and the 1200×630 `sips` check. W7 remains G3, full G4 with
+  `0 failed`, and G5. AC12 and AC13 remain unchanged and are release criteria, not W5 criteria.
+
+**G4-W5-pre-OG — reproducible W5 rendered gate** (run against the W5 production server):
+
+```bash
+bash docs/active/plans/02-nkp4-design-alignment/verify-design.sh --selftest &&
+bash -c '
+log=$(mktemp "${TMPDIR:-/tmp}/nkp4-w5-g4.XXXXXX") || exit 1
+trap '\''rm -f "$log"'\'' EXIT
+bash docs/active/plans/02-nkp4-design-alignment/verify-design.sh http://127.0.0.1:3002 >"$log" 2>&1
+rc=$?
+cat "$log"
+[ "$rc" -ne 0 ] || { echo "W5 gate failed: full G4 unexpectedly returned zero"; exit 1; }
+[ "$(grep -c "^FAIL - " "$log")" -eq 3 ] || { echo "W5 gate failed: failures differ from the three W6-owned assertions"; exit 1; }
+[ "$(grep -c "^FAIL - og:image is not /og-card.png$" "$log")" -eq 1 ] || exit 1
+[ "$(grep -c "^FAIL - twitter:image is not /og-card.png$" "$log")" -eq 1 ] || exit 1
+[ "$(grep -c "^FAIL - og-card.png content-type: .*$" "$log")" -eq 1 ] || exit 1
+grep -Eq "^verify-design: [0-9]+ passed, 3 failed$" "$log" || exit 1
+echo "G4-W5-pre-OG: PASS — every non-OG rendered check passed; three W6-owned checks deferred"
+'
+```
+
+*Coverage.* The exclusion is assertion-exact, not count-only: all route, structure, CTA, filter,
+accessibility, and link-behavior checks still execute. The complete release gate is retained after
+W6 and at W7. Open coverage rows remain **none**.
+
+---
+
+## Audit amendment — 2026-09-13 (final W7 mobile gate)
+
+**Re-audit verdict: GO WITH CHANGES, resolved by this amendment.** Confidence: high. This narrow
+Tier-2 amendment preserves the binding `#connect` threshold and every settled copy, section,
+order, and accessibility decision.
+
+**Binding rule.** This is the latest amendment and wins only for the W7 mobile-spacing correction
+and rerun. All earlier amendments remain binding.
+
+**F16 [MED] — cumulative mobile spacing puts `#connect` 0.59 screens late.** At 390×844 on the
+current W6 production build, `#connect` is at 4720px / 5.59 screen-heights. The founder quote is
+at 3801px / 4.50 and already passes. The excess is cumulative rather than a section-order defect:
+mobile heights before `#connect` are portfolio 1529px, framework 988px, founder 958px, and
+philosophy 619px; the generic 56px section padding and desktop-oriented internal gaps repeat
+through each single-column section.
+
+- *Amendment.* New **T7.1a (W7 mobile-spacing correction)**: change **only**
+  `app/globals.css`, inside the existing `@media (max-width: 640px)` block. Add these mobile
+  overrides; do not change markup, copy, section order, visibility, typography, focus treatment,
+  or the `≤ 5` criterion:
+
+  ```css
+  .hq-section { padding-block: 24px; }
+  .hq-portfolio-grid { margin-top: 24px; }
+  .hq-company-card { padding: 18px; }
+  .hq-card-industry { margin-top: 18px; }
+  .hq-company-card > p { margin-top: 16px; }
+  .hq-chip { margin-top: 16px; }
+  .hq-card-link { padding-top: 18px; }
+  .hq-framework-list { margin-top: 32px; gap: 20px; }
+  .hq-framework-list li { padding-top: 18px; }
+  .hq-progression-band { margin-top: 28px; }
+  .hq-progression-band li { padding-bottom: 20px; }
+  .hq-progression-band li:last-child { padding-bottom: 0; }
+  .hq-founder-quote { margin-top: 40px; }
+  .hq-formula { margin-top: 28px; gap: 24px; }
+  .hq-formula li:not(:last-child)::after { bottom: -22px; }
+  ```
+
+  These are the only site path and rules this remediation authorizes. A browser injection of the
+  same declarations against the current build measured quote 3359px / 3.98 and `#connect` 4150px
+  / 4.92, with zero horizontal overflow. If the committed CSS does not reproduce the gate, stop
+  and return to Phase 5; do not broaden the file/rule scope.
+
+- *Exact rerun gate.* Rebuild and restart the production server, set DevTools to **390×844**, keep
+  zoom at 100%, and run this exact Console assertion on `/`:
+
+  ```js
+  (() => {
+    const quote = document.querySelector(".hq-founder-quote");
+    const connect = document.querySelector("#connect");
+    const result = {
+      viewport: `${innerWidth}x${innerHeight}`,
+      quoteScreens: quote.offsetTop / innerHeight,
+      connectScreens: connect.offsetTop / innerHeight,
+      noOverflow: document.documentElement.scrollWidth <= innerWidth,
+    };
+    console.table(result);
+    if (innerWidth !== 390 || innerHeight !== 844 || result.quoteScreens > 5 ||
+        result.connectScreens > 5 || !result.noOverflow) throw new Error("G5 mobile gate failed");
+    return result;
+  })();
+  ```
+
+  Then rerun **G3, full G4 (`0 failed`), and all of G5 at both 390×844 and 1440×900**. Record G5
+  as passing only if the complete checklist is **33 passed, 0 failed**; the Console assertion is
+  evidence for G5.2–3, not a substitute for the other checks.
+
+*Coverage.* Copy and DOM are untouched; the horizontal layouts, route behavior, focus/contrast,
+reduced-motion behavior, and exact six-section order are untouched. Open coverage rows remain
+**none**.
