@@ -75,6 +75,12 @@ All nine questions answered with the recommended option:
 
 Status after decisions: gathering complete. No implementation, commit, push, merge, or deploy performed. Next deliverable (per decision 9) is a design review + proposed wireframe, to be undertaken in a separate session with owner approval before any code.
 
+## Operating conventions
+
+- **Blocking lane watch:** A PM must not end its turn while a supervised lane is active. After dispatch or resume, follow that lane's dispatch-specific log or exact durable session record until `FINAL`, `STALLED`, or `PR`, then process the event before replying to the owner.
+- **Pi resume rule:** A resumed Pi lane appends to its original JSONL. Do not re-arm with a new `--since` boundary; follow the exact session file already recorded for that lane.
+- **Workspace hygiene:** Close a workspace immediately after verifying its final line is `✅ SAFE TO CLOSE`. Keep `⛔ DO NOT CLOSE` lanes open only for their named pending action. Sweep `herdr agent list` after every lane transition.
+
 ## Successor prompt
 
 ```text
